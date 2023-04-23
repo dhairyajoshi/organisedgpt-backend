@@ -75,7 +75,7 @@ module.exports.getMessages = async (req, res, next) => {
 
 module.exports.updateMessages = async (req, res, next) => {
 
-    const chat = await conversationModel.findById(req.body.chatId).exec()
+    const chat = await conversationModel.findById(req.query.id).exec()
     chat.messages = []
 
     messageModel.deleteMany({ chat: chat.id }).exec()
