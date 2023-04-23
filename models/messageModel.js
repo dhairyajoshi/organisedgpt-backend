@@ -8,7 +8,7 @@ const MessageSchema = mongoose.Schema({
     a: { type: Number, required: true },
     t: { type: Number, required: true },
     c: { type: String, required: true },
-
+ 
 })
 
 module.exports = mongoose.model("GPTMessage", MessageSchema)    

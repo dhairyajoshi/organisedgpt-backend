@@ -8,4 +8,4 @@ router.get('/getchats', convController.getChats)
 router.get('/getmessages', convController.getMessages) 
 router.post('/updatemessages', convController.updateMessages)  
 
-module.exports = router
+module.exports = router 

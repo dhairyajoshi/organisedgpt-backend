@@ -22,7 +22,7 @@ module.exports.addMessage = async (req, res, next) => {
 }
 
 module.exports.addMessages = async (req, res, next) => {
-    const chat = await conversationModel.findById(req.query.chatId)
+    const chat = await conversationModel.findById(req.query.id)
     for (i = 0; i < req.body.length; i++) {
 
         const message = messageModel({
