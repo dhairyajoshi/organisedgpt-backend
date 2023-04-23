@@ -81,16 +81,16 @@ module.exports.updateMessages = async (req, res, next) => {
     messageModel.deleteMany({ chat: chat.id }).exec()
 
 
-    for (i = 0; i < req.body['messages'].length; i++) {
+    for (i = 0; i < req.body.length; i++) {
 
         const message = messageModel({
             _id: new mongoose.Types.ObjectId(),
             user: req.UserData.userId,
             chat: req.body.chatId,
-            u: req.body['messages'][i].u,
-            a: req.body['messages'][i].a,
-            t: req.body['messages'][i].t,
-            c: req.body['messages'][i].c,
+            u: req.body[i].u,
+            a: req.body[i].a,
+            t: req.body[i].t,
+            c: req.body[i].c,
         })
         await message.save()
         chat.messages.push(message)
