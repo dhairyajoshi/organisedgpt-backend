@@ -28,7 +28,7 @@ module.exports.addMessages = async (req, res, next) => {
         const message = messageModel({
             _id: new mongoose.Types.ObjectId(),
             user: req.UserData.userId,
-            chat: req.query.chatId,
+            chat: req.query.id,
             u: req.body[i].u,
             a: req.body[i].a,
             t: req.body[i].t,
@@ -80,13 +80,13 @@ module.exports.updateMessages = async (req, res, next) => {
 
     messageModel.deleteMany({ chat: chat.id }).exec()
 
-
+    console.log(req.body)
     for (i = 0; i < req.body.length; i++) {
 
         const message = messageModel({
             _id: new mongoose.Types.ObjectId(),
             user: req.UserData.userId,
-            chat: req.body.chatId,
+            chat: req.query.id,
             u: req.body[i].u,
             a: req.body[i].a,
             t: req.body[i].t,
@@ -99,4 +99,21 @@ module.exports.updateMessages = async (req, res, next) => {
     chat.save()
 
     res.status(200).json({ 'messages': chat })
-}  
+}
+
+module.exports.deleteChat = async (req, res, next) => {
+    conversationModel.findByIdAndDelete(req.query.id).exec();
+    messageModel.deleteMany({ chat: req.query.id }).exec()
+
+    res.status(200).json({ 'msg': 'chat deleted successfully' })
+}
+
+module.exports.renameChat = async (req, res, next) => {
+    chat = await conversationModel.findById(req.query.id).exec();
+
+    chat.name = req.body.name;
+
+    chat.save()
+
+    res.status(200).json({ 'msg': 'chat renamed successfully' })
+}
